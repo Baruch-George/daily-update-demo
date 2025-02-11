@@ -1,0 +1,22 @@
+name: Daily Repository Update
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Runs every day at 08:00 AM UTC
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Add a new commit - baruch.georgeponnumani@straive.com
+      run: |
+        date >> daily_update.log
+        git config --global user.name "GitHub Action Bot"
+        git config --global user.email "baruch.georgeponnumani@straive.com"
+        git add daily_update.log
+        git commit -m "Daily update $(date)"
+        git push
